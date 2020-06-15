@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="loginHtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>A3商城</title>
+	<block name="common" th:replace="common/base"></block>
+	<script th:inline="javascript">
+		var captcha = [[${captcha}]];
+	</script>
+</head>
+<body class="loginBody">
+	<form class="layui-form" action="" lay-filter="userLogin"  id="userLogin"  style="box-shadow:0 0 0px #009688; background-color: rgba(0,0,0, 0.3); " >
+		<!--<div class="login_face"><img src="/page/login/log.png" class="userAvatar"  ></div>-->
+
+		<fieldset class="layui-elem-field layui-field-title zyl_mar_02">
+			<legend style="color: #ffff">用户登录</legend>
+		</fieldset>
+
+
+		<div class="layui-form-item input-item">
+			<label for="userName">用户名</label>
+			<input type="text" placeholder="请输入用户名" autocomplete="off" name="userName" id="userName" class="layui-input" lay-verify="required">
+		</div>
+		<div class="layui-form-item input-item">
+			<label for="password">密码</label>
+			<input type="password" placeholder="请输入密码" autocomplete="off" name="password" id="password" class="layui-input" lay-verify="required">
+		</div>
+		<div class="layui-form-item input-item" id="imgCode">
+			<label for="code">验证码</label>
+			<input type="text" placeholder="请输入验证码" autocomplete="off" name="code" id="code" class="layui-input">
+			<img id="validateImg">
+		</div>
+		<div class="layui-form-item">
+			<button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
+		</div>
+	</form>
+	<script type="text/javascript" src="/page/login/login.js"></script>
+
+</body>
+</html>

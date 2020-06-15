@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.SysRoleMapper">
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getRoleList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.id,
+			t.role_code AS roleCode,
+			t.role_name AS roleName,
+			t.role_type AS roleType,
+			t.`status`,
+			t.create_code AS createCode,
+			DATE_FORMAT( t.create_time, '%Y-%m-%d %H:%i:%S' ) AS createTime,
+			t.update_code AS updateCode,
+			DATE_FORMAT( t.update_time, '%Y-%m-%d %H:%i:%S' ) AS updateTime
+		FROM
+			sc_sys_role t
+		WHERE
+			t.`status` = 'Y'
+		<if test="params.id neq null and params.id neq ''">
+			AND t.id = #{params.id}
+		</if>
+		<if test="params.role_code neq null and params.role_code neq ''">
+			AND t.role_code = #{params.roleCode}
+		</if>
+		<if test="params.roleName neq null and params.roleName neq ''">
+			AND t.role_name  LIKE concat('%',#{params.roleName},'%')
+		</if>
+		ORDER BY t.create_time
+	</select>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getRoleMenuList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.menu_code as `value`,
+			t.menu_name as title,
+			t.parent_code as parentCode,
+			t.menu_level as menuLevel,
+			menu_if_accredit.menu_code AS checked
+		FROM
+			sc_sys_menu t
+		LEFT JOIN sc_sys_role_menus role_menu ON role_menu.menu_code = t.menu_code
+		LEFT JOIN sc_sys_role role ON role.role_code = role_menu.role_code
+		LEFT JOIN sc_sys_user_roles user_role	 ON user_role.role_code = role.role_code
+		LEFT JOIN sc_sys_user sys_user ON sys_user.user_code = user_role.user_code
+		LEFT JOIN (
+					SELECT
+						t.menu_code
+					FROM
+						sc_sys_menu t
+					LEFT JOIN sc_sys_role_menus role_menu ON role_menu.menu_code = t.menu_code
+					LEFT JOIN sc_sys_role role ON role.role_code = role_menu.role_code
+					WHERE
+						t.`status` = 'Y'
+					AND
+						role.`status` = 'Y'
+					<if test="roleCode neq null and roleCode neq ''">
+						AND role.role_code = #{roleCode}
+					</if>
+					GROUP BY t.menu_code
+				   )menu_if_accredit ON menu_if_accredit.menu_code = t.menu_code
+		WHERE
+			t.`status` = 'Y'
+		<if test="userCode neq null and userCode neq ''">
+			AND sys_user.user_code = #{userCode}
+		</if>
+		GROUP BY t.menu_code
+		ORDER BY t.sort
+	</select>
+
+    <insert id="insertRoleMenusBatch">
+		INSERT INTO sc_sys_role_menus
+			(menu_code, role_code, status,create_code,create_time)
+		VALUES
+		<foreach collection ="list" item="roleMenu" separator =",">
+			(#{roleMenu.menuCode}, #{roleMenu.roleCode}, #{roleMenu.status},#{roleMenu.createCode},now())
+		</foreach >
+	</insert>
+
+</mapper>

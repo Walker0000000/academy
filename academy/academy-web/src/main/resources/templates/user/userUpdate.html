@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+    <script th:inline="javascript">
+      var userData = [[${userData}]];
+    </script>
+  </head>
+
+  <body class="childrenBody">
+    <!-- 添加和修改的弹出层开始 -->
+    <div style="padding: 20px" id="" >
+      <form class="layui-form " action="" lay-filter="dataFrm" id="dataFrm">
+
+        <input type="hidden" name="id"  lay-verify="required" autocomplete="off" class="layui-input">
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">名称:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="userName" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">邮箱:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="email" lay-verify="required|email" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">手机:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="phone"  lay-verify="required|phone" autocomplete="off" class="layui-input"  oninput="value=value.replace(/[^\d]/g,'')">
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">性别:</label>
+            <div class="layui-input-inline">
+              <input type="radio" name="sex" value="0" checked="checked" title="男">
+              <input type="radio" name="sex" value="1" title="女">
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">类型:</label>
+            <div class="layui-input-inline">
+              <input type="text" id="userType" lay-verify="required"  name="userType" lay-filter="userType" class="layui-input" >
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">状态:</label>
+            <div class="layui-input-inline">
+              <input type="radio" name="status" value="Y" checked="checked" title="有效">
+              <input type="radio" name="status" value="N" title="无效">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="layui-form-item">
+
+          <div class="layui-inline">
+            <label class="layui-form-label">初始化密码:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="password"  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="layui-form-item" style="text-align: center;" hidden="hidden">
+          <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="insertSubmit" lay-submit>提交</button>
+            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="/page/user/userUpdate.js"></script>
+
+  </body>
+
+</html>

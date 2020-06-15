@@ -1,0 +1,23 @@
+server:
+  port: 8109
+
+spring:
+  profiles:
+    include: druid,common
+  thymeleaf:
+    suffix: .html
+    servlet:
+      content-type: text/html
+    cache: false
+    charset: UTF-8
+
+#资源服务器
+resource:
+  address: http://47.114.81.106:8102
+  showImg: ${resource.address}/fileResource/showImg/?url=
+
+wx:
+  distributorPath: http://code.leon2400.top
+
+
+

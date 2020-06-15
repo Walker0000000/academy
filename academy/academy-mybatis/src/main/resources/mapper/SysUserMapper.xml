@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.SysUserMapper">
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id, login_name AS loginName, user_type AS userType, user_code AS userCode, user_name AS userName, `password`, phone, nickname, email, sex, `status`, create_code AS createCode, create_time AS createTime, update_code AS updateCode, update_time AS updateTime
+	</sql>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getUserList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.id,
+			t.login_name AS loginName,
+			t.user_type AS userType,
+			t.user_code AS userCode,
+			t.user_name AS userName,
+			t.`password`,
+			t.phone,
+			t.nickname,
+			t.email,
+			t.sex,
+			t.`status`,
+			t.create_code AS createCode,
+			DATE_FORMAT( t.create_time, '%Y-%m-%d %H:%i:%S' ) AS createTime,
+			t.update_code AS updateCode,
+			DATE_FORMAT( t.update_time, '%Y-%m-%d %H:%i:%S' ) AS updateTime
+		FROM
+		 	sc_sys_user t
+		WHERE
+			t.`status` = 'Y'
+		<if test="params.id neq null and params.id neq ''">
+			AND t.id = #{params.id}
+		</if>
+		<if test="params.userCode neq null and params.userCode neq ''">
+			AND t.user_code = #{params.userCode}
+		</if>
+		<if test="params.userName neq null and params.userName neq ''">
+			AND t.user_name  LIKE concat('%',#{params.userName},'%')
+		</if>
+		ORDER BY t.create_time
+	</select>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getUserRoleList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.role_code as `value`,
+			t.role_name as title,
+			role_if_accredit.role_code AS checked
+		FROM
+			sc_sys_role t
+		LEFT JOIN sc_sys_user_roles user_roles ON user_roles.role_code = t.role_code
+		LEFT JOIN sc_sys_user sys_user ON sys_user.user_code = user_roles.user_code
+		LEFT JOIN(
+					SELECT
+						t.role_code
+					FROM
+						sc_sys_user_roles t
+					WHERE
+						t.`status` = 'Y'
+				<if test="userCode neq null and userCode neq ''">
+					AND t.user_code = #{userCode}
+				</if>
+					GROUP BY t.role_code
+				 )role_if_accredit ON role_if_accredit.role_code = t.role_code
+		WHERE
+			t.`status` = 'Y'
+		<if test="myUserCode neq null and myUserCode neq ''">
+			AND t.user_code = #{myUserCode}
+		</if>
+		GROUP BY t.role_code
+		ORDER BY t.create_time
+	</select>
+
+
+	<insert id="insertUserRoleBatch">
+		INSERT INTO sc_sys_user_roles
+			(user_code, role_code, status,create_code,create_time)
+		VALUES
+		<foreach collection ="list" item="userRole" separator =",">
+			(#{userRole.userCode}, #{userRole.roleCode}, #{userRole.status},#{userRole.createCode},now())
+		</foreach >
+	</insert>
+
+
+	<insert id="insertWxUserRoleBatch">
+		INSERT INTO sc_wx_user_roles
+		(user_code, role_code, status,create_code,create_time)
+		VALUES
+		<foreach collection ="list" item="wxUserRole" separator =",">
+			(#{wxUserRole.userCode}, #{wxUserRole.roleCode}, #{wxUserRole.status},#{wxUserRole.createCode},now())
+		</foreach >
+	</insert>
+
+
+	<select id="getUserTreeList" resultType="com.alibaba.fastjson.JSONObject">
+
+        SELECT
+            t.id,
+            t.user_code as userCode,
+            t.user_name as name
+        FROM
+			sc_sys_user t
+        WHERE
+            t.`status` = 'Y'
+        <if test="userName !=null  and userName != ''">
+            AND t.user_name = #{userName}
+        </if>
+        ORDER BY
+            t.`create_time`
+    </select>
+
+	<select id="getUserWxRoleByMap" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.role_code as `value`,
+			t.role_name as title,
+			role_if_accredit.role_code AS checked
+		FROM
+			sc_wx_role t
+		LEFT JOIN sc_wx_user_roles user_roles ON user_roles.role_code = t.role_code
+		LEFT JOIN sc_sys_user sys_user ON sys_user.user_code = user_roles.user_code
+		LEFT JOIN(
+					SELECT
+						t.role_code
+					FROM
+						sc_wx_user_roles t
+					WHERE
+						t.`status` = 'Y'
+					<if test="userCode neq null and userCode neq ''">
+						AND t.user_code = #{userCode}
+					</if>
+					GROUP BY t.role_code
+				  )role_if_accredit ON role_if_accredit.role_code = t.role_code
+		WHERE
+			t.`status` = 'Y'
+		<if test="myUserCode neq null and myUserCode neq ''">
+			AND t.user_code = #{myUserCode}
+		</if>
+		GROUP BY t.role_code
+		ORDER BY t.create_time
+	</select>
+
+
+</mapper>

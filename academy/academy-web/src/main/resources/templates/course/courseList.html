@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+</head>
+
+<body class="childrenBody">
+
+<form class="layui-form">
+
+    <blockquote class="layui-elem-quote quoteBox" style="height: 80px;">
+
+        <form class="layui-form">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">课程名称:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="courseName" name="courseName" class="layui-input searchVal"
+                               placeholder="请输入菜单名称"/>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">分类:</label>
+                    <div class="layui-input-inline">
+                        <select type="text" name="classCode" class="layui-select searchVal" lay-search id="classCode">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">课程标签:</label>
+                    <div class="layui-input-inline">
+                        <select type="text" name="labelCode" class="layui-select searchVal" lay-search id="labelCode">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-input-inline">
+                    <label class="layui-form-label">状态:</label>
+                    <div class="layui-input-inline">
+                        <select type="text" name="status" class="layui-select searchVal" lay-search id="status">
+                            <option></option>
+                            <option value="1">待提交</option>
+                            <option value="2">审核中</option>
+                            <option value="3">审核通过</option>
+                            <option value="4">审核拒绝</option>
+                            <option value="5">已发布</option>
+                            <option value="6">已下架</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <a class="layui-btn search_btn" data-type="reload" id="courseTable">搜索</a>
+            </div>
+
+            <div class="layui-inline" style="float: right;">
+                <a class="layui-btn layui-btn-normal addNews_btn" id="add">添加</a>
+                <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn" id="del">删除</a>
+                <a class="layui-btn layui-btn-danger layui-btn-normal editor_holder_btn" id="import">导入</a>
+                <a class="layui-btn layui-btn-danger layui-btn-normal editor_holder_btn" id="audit">提交审核</a>
+                <a class="layui-btn layui-btn-danger layui-btn-normal editor_holder_btn" id="soldOut">下架</a>
+            </div>
+
+        </form>
+
+    </blockquote>
+
+    <table class="layui-table" id="courseList" lay-filter="courseList"></table>
+
+</form>
+
+<script type="text/html" id="toolbar"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="set">章节设置</a>
+</script>
+
+<script type="text/javascript" src="/page/course/course.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+</head>
+
+<body class="childrenBody">
+
+    <form class="layui-form">
+
+        <blockquote class="layui-elem-quote quoteBox">
+
+            <form class="layui-form">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <label class="layui-form-label">菜单名称:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="menuName" name="menuName" class="layui-input searchVal" placeholder="请输入菜单名称"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="layui-inline">
+                    <a class="layui-btn search_btn" data-type="reload" id="menuTable">搜索</a>
+                    <a class="layui-btn layui-btn-normal addNews_btn" id="add">添加菜单</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-normal editor_holder_btn" id="edit">编辑菜单</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn" id="del">删除菜单</a>
+                </div>
+
+            </form>
+
+        </blockquote>
+
+        <table class="layui-table" id="menuList" lay-filter="menuList"></table>
+
+    </form>
+
+    <script type="text/javascript" src="/page/menu/menu.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.ChapterMapper">
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+		id, code, `name`, course_code AS courseCode, chapter_body AS chapterBody, teaching_plan_body AS teachingPlanBody, sort, `status`, create_user_code AS createUserCode, create_time AS createTime, update_user_code AS updateUserCode, update_time AS updateTime
+	</sql>
+
+    <select id="getChapterTreeList" resultType="com.academy.entity.tree.DTree">
+        SELECT
+        c.`code` AS id,
+        c.`name` AS title,
+        c.course_code AS parentId,
+        true AS `last`
+        FROM
+        t_chapter c
+        WHERE
+        c.`status` = 1
+        <if test="courseCode neq null and courseCode neq ''">
+            AND c.course_code = #{courseCode}
+        </if>
+    </select>
+
+</mapper>

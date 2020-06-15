@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.CourseMapper">
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+		id, code, `name`, classCode, labelCode, ages, classHour, classTime, `status`, createUserCode, createTime, updateUserCode, updateTime
+	</sql>
+
+    <!-- 根据条件获取菜单列表 -->
+    <select id="getCourseList" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT
+        c.id,
+        p.`name` AS projectName,
+        b.`name` AS brandName,
+        c.class_code AS classCode,
+        cl.`name` AS className,
+        c.`name` AS courseName,
+        GROUP_CONCAT(l.`name`) AS labelName,
+        c.label_code AS labelCode,
+        c.ages,
+        c.class_hour AS classHour,
+        c.class_time AS classTime,
+        CASE
+        c.`status`
+        WHEN 0 THEN
+        '已删除'
+        WHEN 1 THEN
+        '待提交'
+        WHEN 2 THEN
+        '审核中'
+        WHEN 3 THEN
+        '审核通过'
+        WHEN 4 THEN
+        '审核拒绝'
+        WHEN 5 THEN
+        '已发布'
+        WHEN 6 THEN
+        '已下架' ELSE '未知'
+        END AS statusStr,
+        su.user_name AS createUserName,
+        DATE_FORMAT(c.create_time,'%Y-%m-%d %H:%i:%S') AS createTime
+        FROM
+        t_course c
+        LEFT JOIN t_class cl ON cl.`code` = c.class_code
+        LEFT JOIN t_brand b ON b.`code` = cl.brand_code
+        LEFT JOIN t_project p ON p.`code` = b.project_code
+        LEFT JOIN t_label l ON FIND_IN_SET(l.`code`,c.label_code) > 0
+        LEFT JOIN sc_sys_user su ON su.user_code = c.create_user_code
+        WHERE c.status &gt; 0
+        <if test="params.id neq null and params.id neq ''">
+            AND c.id = #{params.id}
+        </if>
+        <if test="params.courseName neq null and params.courseName neq ''">
+            AND c.name LIKE concat('%',#{params.courseName},'%')
+        </if>
+        <if test="params.classCode neq null and params.classCode neq ''">
+            AND c.class_code = #{params.classCode}
+        </if>
+        <if test="params.labelCode neq null and params.labelCode neq ''">
+            AND c.label_code LIKE concat('%',#{params.labelCode},'%')
+        </if>
+        <if test="params.status neq null and params.status neq ''">
+            AND c.status = #{params.status}
+        </if>
+        GROUP BY c.id
+        ORDER BY c.update_time DESC
+    </select>
+
+    <select id="getCourseTreeDetail" resultType="com.academy.entity.tree.DTree">
+        SELECT
+        c.code AS id,
+        c.name AS title,
+        true AS spread
+        FROM
+        t_course c
+        <where>
+            <if test="params.id neq null and params.id neq ''">
+                AND c.id = #{params.id}
+            </if>
+        </where>
+
+    </select>
+</mapper>

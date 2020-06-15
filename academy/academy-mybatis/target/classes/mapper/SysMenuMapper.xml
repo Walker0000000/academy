@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.SysMenuMapper">
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id, menu_code AS menuCode, system_code AS systemCode, menu_name AS menuName, parent_code AS parentCode, sort, icon, `path`, menu_level AS menuLevel, create_time AS createTime, create_code AS createCode, update_time AS updateTime, update_code AS updateCode, `status`
+	</sql>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getSysMenuList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.id,
+			t.menu_code,
+			t.menu_name as title,
+			t.path as href,
+			t.icon,
+			t.parent_code,
+			t.menu_level,
+			t.sort
+		FROM
+		 	sc_sys_menu t
+		WHERE
+			t.`status` = 'Y'
+		ORDER BY t.sort
+	</select>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getSysMenuTreeList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.id,
+			t.menu_code,
+			t.menu_name as name,
+			t.parent_code,
+			t.menu_level,
+			t.sort
+		FROM
+			sc_sys_menu t
+		WHERE
+			t.`status` = 'Y'
+		<if test="menuLevel neq null and menuLevel neq ''">
+			AND t.menu_level = #{menuLevel}
+		</if>
+		ORDER BY t.sort
+	</select>
+
+	<!-- 根据条件获取菜单列表 -->
+	<select id="getMenuList" resultType="com.alibaba.fastjson.JSONObject">
+		SELECT
+			t.id,
+			t.menu_code as menuCode,
+			t.menu_name as menuName,
+			t.system_code,
+			t.path,
+			t.icon,
+			t.parent_code as parentCode,
+			t_parent.menu_name as parentName,
+			t_parent.id as parentId,
+			t.menu_level as menuLevel,
+			t.sort,
+			DATE_FORMAT(t.create_time,'%Y-%m-%d %H:%i:%S') AS createTime
+		FROM
+			sc_sys_menu t
+		LEFT JOIN sc_sys_menu t_parent ON t_parent.menu_code = t.parent_code AND  t_parent.`status` = 'Y'
+		WHERE
+			t.`status` = 'Y'
+		<if test="params.id neq null and params.id neq ''">
+			AND t.id = #{params.id}
+		</if>
+		<if test="params.parentCode neq null and params.parentCode neq ''">
+			AND t.parent_code = #{params.parentCode}
+		</if>
+		<if test="params.menuName neq null and params.menuName neq ''">
+			AND t.menu_name  LIKE concat('%',#{params.menuName},'%')
+		</if>
+		ORDER BY t.sort
+	</select>
+	
+
+
+</mapper>

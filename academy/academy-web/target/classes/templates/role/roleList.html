@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+</head>
+
+<body class="childrenBody">
+
+<form class="layui-form">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form">
+            <div class="layui-inline">
+                <label class="layui-form-label">角色名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="roleName" class="layui-input searchVal" id="roleName"
+                           placeholder="请输入角色名称"/>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <a class="layui-btn search_btn" data-type="reload" id="roleTable">搜索</a>
+                <a class="layui-btn layui-btn-normal addNews_btn" id="add">添加角色</a>
+            </div>
+        </form>
+
+    </blockquote>
+
+    <table class="layui-table" id="roleList" lay-filter="roleList"></table>
+
+</form>
+
+<script type="text/html" id="toolbar"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">授权</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/javascript" src="/page/role/role.js"></script>
+
+</body>
+
+</html>

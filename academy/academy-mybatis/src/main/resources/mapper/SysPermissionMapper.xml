@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.mapper.SysPermissionMapper">
+
+	<!-- 通用查询结果列-->
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id, login_name AS loginName, user_type AS userType, open_id AS openId, user_code AS userCode, user_name AS userName, `password`, phone, nickname, email, sex, `status`, create_code AS createCode, create_time AS createTime, update_code AS updateCode, update_time AS updateTime
+	</sql>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="getSysUserList" resultType="com.academy.entity.SysUser">
+		SELECT
+			t.id,
+			t.login_name AS loginName,
+			t.user_type AS userType,
+			t.user_code AS userCode,
+			t.user_name AS userName,
+			t.open_id AS openId,
+			t.`password`,
+			t.avatar,
+			t.phone,
+			t.nickname,
+			t.email,
+			t.sex,
+			t.`status`
+		FROM
+		 	sc_sys_user t
+		WHERE
+			t.`status` = 'Y'
+		<if test="loginName neq null and loginName neq ''">
+			AND t.login_name = #{loginName}
+		</if>
+		<if test="password neq null and password neq ''">
+			AND t.`password` = #{password}
+		</if>
+		<if test="openId neq null and openId neq ''">
+			AND t.open_id = #{openId}
+		</if>
+		GROUP BY t.id
+	</select>
+
+	<!-- 根据用户编码获取角色 -->
+	<select id="findRoleNameByUserCode" resultType="java.lang.String">
+		SELECT
+			t.role_code AS roleCode
+		FROM
+			sc_sys_user_roles t
+		WHERE
+		t.`status` = 'Y'
+		<if test="userCode neq null and userCode neq ''">
+			AND t.user_code = #{userCode}
+		</if>
+		GROUP BY t.id
+	</select>
+
+	<!-- 根据用户角色获取菜单 后期修改逻辑 -->
+	<select id="findPermissionsByUserCode" resultType="java.lang.String">
+		SELECT
+			t.path AS path
+		FROM
+			sc_sys_menu t
+		LEFT JOIN sc_sys_role_menus role_menu ON role_menu.menu_code = t.menu_code
+		LEFT JOIN sc_sys_role role ON role.role_code = role_menu.role_code
+		LEFT JOIN sc_sys_user_roles user_role	 ON user_role.role_code = role.role_code
+		LEFT JOIN sc_sys_user sys_user ON sys_user.user_code = user_role.user_code
+		WHERE
+			t.`status` = 'Y'
+		AND
+			role_menu.`status` = 'Y'
+		AND
+			role.`status` = 'Y'
+		AND
+			user_role.`status` = 'Y'
+		AND
+			sys_user.`status` = 'Y'
+		<if test="userCode neq null and userCode neq ''">
+			AND sys_user.user_code = #{userCode}
+		</if>
+		GROUP BY t.id
+	</select>
+
+</mapper>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+    <link rel="stylesheet" href="../layui_ext/dtree/dtree.css">
+    <link rel="stylesheet" href="../layui_ext/dtree/font/dtreefont.css">
+    <script th:inline="javascript">
+        var chapterData = [[${chapterData}]];
+    </script>
+</head>
+
+<body class="childrenBody">
+
+<div class="layui-row layui-col-space10">
+
+    <div class="layui-col-md3">
+        <div style="padding: 15px;">课程章节</div>
+        <form class="layui-form">
+            <div id="chapterTree" style="border:0px solid black;padding: 10px 0 25px 5px;"></div>
+        </form>
+    </div>
+
+    <div class="layui-col-md7">
+        <form class="layui-form " action="" lay-filter="dataFrm" id="dataFrm">
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">章节名称:</label>
+                    <div class="layui-input-inline" style="width: 500px;">
+                        <input type="text" name="chapterName" lay-verify="required" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">章节正文:</label>
+                    <div class="layui-input-inline" style="width: 800px;">
+                        <textarea type="text" id="chapterBody" style="display: none;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">教案正文:</label>
+                    <div class="layui-input-inline" style="width: 800px;">
+                        <textarea type="text" id="teachingPlanBody" style="display: none;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item" style="text-align: center;" hidden="hidden">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"
+                            lay-filter="courseAddSubmit" lay-submit>提交
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh">重置
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    </form>
+
+</div>
+
+</blockquote>
+
+<!--引用dtree-->
+<!--<script type="text/javascript" src="/layui_ext/dist/dtree.js"></script>-->
+<script type="text/javascript" src="/page/course/courseChapter.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+    <script th:inline="javascript">
+      var menuData = [[${menuData}]];
+    </script>
+  </head>
+
+  <body class="childrenBody">
+    <!-- 添加和修改的弹出层开始 -->
+    <div style="padding: 20px" id="" >
+      <form class="layui-form " action="" lay-filter="dataFrm" id="dataFrm">
+        <input type="hidden" name="id"  lay-verify="required" autocomplete="off" class="layui-input">
+        <div class="layui-form-item">
+
+
+
+          <div class="layui-inline">
+            <label class="layui-form-label">菜单编码:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="menuCode"  lay-verify="required" disabled ="disabled"  autocomplete="off" class="layui-input" >
+            </div>
+          </div>
+
+
+          <div class="layui-inline">
+            <label class="layui-form-label">菜单名称:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="menuName" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="layui-form-item">
+
+
+          <div class="layui-inline">
+            <label class="layui-form-label">菜单顺序:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="sort"  lay-verify="required|number" autocomplete="off" class="layui-input" oninput="value=value.replace(/[^\d]/g,'')">
+            </div>
+          </div>
+
+
+          <div class="layui-inline">
+            <label class="layui-form-label">上级菜单:</label>
+            <div class="layui-input-inline">
+              <input type="text" id="parentCode" lay-verify="required" name="parentCode" lay-filter="parentCode" class="layui-input" >
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="layui-form-item">
+
+          <div class="layui-inline">
+            <label class="layui-form-label">菜单路径:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="path"  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">菜单图标:</label>
+            <div class="layui-input-inline">
+              <input type="text" name="icon" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="layui-form-item">
+
+          <label class="layui-form-label">菜单类型:</label>
+          <div class="layui-input-inline">
+            <input type="radio" name="menuLevel" value="1" checked="checked" title="一级">
+            <input type="radio" name="menuLevel" value="2" title="二级">
+            <input type="radio" name="menuLevel" value="3" title="菜单">
+          </div>
+        </div>
+
+        <div class="layui-form-item" style="text-align: center;" hidden="hidden" >
+          <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="menuEditSubmit" lay-submit>提交</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="/page/menu/menuUpdate.js"></script>
+
+  </body>
+
+</html>

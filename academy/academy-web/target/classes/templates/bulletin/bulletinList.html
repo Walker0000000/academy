@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <block name="common" th:replace="common/base"></block>
+</head>
+
+<body class="childrenBody">
+
+    <form class="layui-form">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">公告标题:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="title" name="title" class="layui-input searchVal" placeholder="请输入公告标题"/>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <a class="layui-btn search_btn" data-type="reload" id="searchTable">搜索</a>
+                        <a class="layui-btn search_btn" id="refresh" lay-filter="refresh">重置</a>
+                        <a class="layui-btn layui-btn-normal addNews_btn" id="add">添加公告</a>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </blockquote>
+
+        <table class="layui-table" id="bulletinList" lay-filter="bulletinList"></table>
+
+    </form>
+
+
+    <script type="text/html" id="toolbar"></script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <script type="text/javascript" src="/page/bulletin/bulletin.js"></script>
+
+</body>
+
+</html>
