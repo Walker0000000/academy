@@ -33,10 +33,7 @@ public class ChapterController {
     @RequestMapping(value = "/gotoCourseChapterPage")
     public ModelAndView gotoCourseListPage(ModelAndView model, @RequestParam(name = "id") String id) {
         Map<String, Object> params = new HashMap<>();
-//        params.put("id", id);
-//        JSONObject chapterData = chapterService.getCourseChapterList(params);
         model.setViewName("course/courseChapters");
-//        model.addObject("chapterData", chapterData);
         return model;
     }
 

@@ -184,3 +184,33 @@ Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'courseCode' in 'whe
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
 	... 129 common frames omitted
+2020-06-15 15:58:42,066 [qtp1322093233-74] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:01:23,847 [qtp677115308-71] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:05:02,106 [qtp677115308-49] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:05:47,621 [qtp939517171-70] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:08:02,615 [qtp34644587-72] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:08:39,442 [qtp170782933-73] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:09:42,059 [qtp170782933-47] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:10:47,951 [qtp1797578199-71] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:11:22,216 [qtp1797578199-47] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:11:43,110 [qtp1797578199-49] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /chapter/gotoCourseChapterPage org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:11:47,410 [qtp1797578199-50] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /chapter/gotoCourseChapterPage org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:14:13,226 [qtp1797578199-77] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /chapter/gotoCourseChapterPage org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:15:04,615 [qtp1797578199-46] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:23:10,072 [qtp1225926739-51] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 16:24:40,471 [qtp1225926739-49] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:24:57,125 [qtp1225926739-46] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 16:27:09,182 [qtp95055266-45] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 16:28:09,671 [qtp1920199-75] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 16:48:53,964 [qtp545394160-77] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 16:54:45,900 [qtp545394160-47] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 16:56:00,073 [qtp1387473776-70] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:11:29,152 [qtp688239976-53] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:11:52,105 [qtp688239976-81] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:13:35,109 [qtp469391891-73] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:15:13,519 [qtp469391891-77] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:19:19,957 [qtp469391891-50] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:20:04,066 [qtp387366967-47] WARN  com.academy.utils.ImageUtil 80 - the image is not exist.
+2020-06-15 20:20:04,513 [qtp387366967-46] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /class/getClassCombobox java.net.SocketTimeoutException: Read timed out
+2020-06-15 20:41:44,959 [qtp1966082314-83] WARN  org.eclipse.jetty.server.HttpChannel 587 - handleException /fileResource/upload org.eclipse.jetty.http.BadMessageException: 400: Unable to parse form content
+2020-06-15 20:55:54,300 [qtp1966082314-99] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver 199 - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'id' is not present]

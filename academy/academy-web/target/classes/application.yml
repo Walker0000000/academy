@@ -19,5 +19,9 @@ resource:
 wx:
   distributorPath: http://code.leon2400.top
 
+upload:
+  path: E:/image
+
+
 
 
